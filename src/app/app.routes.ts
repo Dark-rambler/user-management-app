@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./modules/login/login.component')
+    loadComponent: () => import('./modules/login2/login2.component')
   },
   // {
   //   path: 'users',

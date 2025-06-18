@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Importar Angular Material Core y Tema
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Importar Material Design Icons
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+// Importar la fuente Nunito de Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/* Reset básico y estilos globales */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+// Configurar variables CSS personalizadas para uso en componentes
+:root {
+  --primary-color: #155883;
+  --primary-light: #3da4c5;
+  --primary-dark: #0d3a5a;
+  --accent-color: #607d8b;
+  --background-color: #f5f5f5;
+  --surface-color: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --error-color: #d32f2f; // Rojo Material Design
+}
+
+// Sobrescribir colores de Angular Material para usar tu color personalizado
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #155883 !important;
+  --mdc-protected-button-label-text-color: white !important;
+  --mat-protected-button-state-layer-color: #155883 !important;
+  --mat-protected-button-ripple-color: rgba(255, 255, 255, 0.1) !important;
+
+  &:hover {
+    --mdc-protected-button-container-color: #0f4666 !important;
+  }
+
+  &:disabled {
+    --mdc-protected-button-container-color: #cccccc !important;
+    --mdc-protected-button-label-text-color: #666666 !important;
+  }
+}
+
+// Colores de error consistentes en toda la aplicación
+.mat-mdc-form-field-error {
+  color: var(--error-color, #d32f2f) !important;
+  font-size: smaller;
+}
