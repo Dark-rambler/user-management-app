@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormUtils } from '../../../../core/utils/form-group';
 
 export interface LoginData {
   userName: string;
@@ -13,17 +14,31 @@ export interface LoginData {
   styleUrl: './login-form.component.scss'
 })
 export class LoginFormComponent {
-  @Output() loginSubmit = new EventEmitter<LoginData>();
-
+  public showPassword: boolean = false;
+  public disabled: boolean = false;
   public loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+  constructor() {
+    this.loginForm = FormUtils.getDefaultLoginFormGroup();
+  }
+
+  private markAllFieldsAsTouched(): void {
+    Object.keys(this.loginForm.controls).forEach(key => {
+      this.loginForm.get(key)?.markAsTouched();
     });
   }
-  // Getters para fácil acceso a los controles
+  public onSubmit(): void {
+    if (this.loginForm.valid) {
+
+    } else {
+      this.markAllFieldsAsTouched();
+    }
+  }
+
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   get userName(): AbstractControl {
     return this.loginForm.get('userName')!;
   }
@@ -49,24 +64,5 @@ export class LoginFormComponent {
     return '';
   }
 
-  // Método para enviar el formulario
-  onSubmit(): void {
-    if (this.loginForm.valid) {
-      this.loginSubmit.emit(this.loginForm.value as LoginData);
-    } else {
-      this.markAllFieldsAsTouched();
-    }
-  }
 
-  // Marcar todos los campos como tocados para mostrar errores
-  private markAllFieldsAsTouched(): void {
-    Object.keys(this.loginForm.controls).forEach(key => {
-      this.loginForm.get(key)?.markAsTouched();
-    });
-  }
-
-  // Método para resetear el formulario
-  resetForm(): void {
-    this.loginForm.reset();
-  }
 }

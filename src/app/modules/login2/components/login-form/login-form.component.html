@@ -20,21 +20,32 @@
         {{ getUsernameErrorMessage() }}
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field appearance="outline"  class="formfield">
+    <mat-form-field appearance="outline" class="formfield">
       <mat-label>Password</mat-label>
       <input
         matInput
         class="login-form-input"
         placeholder="Enter your password"
         formControlName="password"
-        type="password"
+        [type]="showPassword ? 'text' : 'password'"
         autocomplete="current-password"
       />
       <mat-error *ngIf="password.invalid && password.touched">
         {{ getPasswordErrorMessage() }}
       </mat-error>
     </mat-form-field>
+    <section class="example-section">
+      <mat-slide-toggle
+        hideIcon="true"
+        color="primary"
+        class="example-margin"
+        [checked]="showPassword"
+        [disabled]="disabled"
+        (change)="togglePasswordVisibility()"
+      >
+        Show password
+      </mat-slide-toggle>
+    </section>
     <button
       mat-raised-button
       color="primary"
@@ -43,7 +54,7 @@
       [disabled]="loginForm.invalid"
       aria-label="Sign in to your account"
     >
-      Sign In
+      SIGN IN
     </button>
   </form>
 

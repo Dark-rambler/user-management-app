@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Importar Angular Material Core y Tema
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Importar Material Design Icons
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 // Importar la fuente Nunito de Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
 
