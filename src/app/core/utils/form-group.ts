@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 export class FormUtils {
   static getDefaultLoginFormGroup(): FormGroup {
     return new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      userName: new FormControl<string>('', [Validators.required]),
+      password: new FormControl<string>('', [Validators.required, Validators.minLength(6)]),
     });
   }
 }

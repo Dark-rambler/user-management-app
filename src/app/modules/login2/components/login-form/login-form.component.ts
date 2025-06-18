@@ -2,11 +2,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormUtils } from '../../../../core/utils/form-group';
 
-export interface LoginData {
-  userName: string;
-  password: string;
-}
-
 @Component({
   selector: 'app-login-form',
   standalone: false,
