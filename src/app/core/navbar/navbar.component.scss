@@ -1,0 +1,37 @@
+.navbar {
+  min-width: 80%;
+  height: 54px;
+  margin: 24px;
+  border-radius: 10px;
+  border-width: 1px;
+  background-color: #f9fafb;
+  padding: 10px 30px;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item {
+  list-style: none;
+  display: inline-block;
+  margin-right: 35px;
+  font-size: 16px;
+  color: #666666;
+  cursor: pointer;
+}
+.nav-text {
+  font-size: 10px;
+  color: #666666;
+  margin-top: 5px;
+}
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  text-decoration: none;
+  width: 100%;
+}

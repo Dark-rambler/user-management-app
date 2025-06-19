@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormUtils } from '../../../../core/utils/form-group';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +14,7 @@ export class LoginFormComponent {
   public disabled: boolean = false;
   public loginForm: FormGroup;
 
-  constructor() {
+  constructor(private route: Router) {
     this.loginForm = FormUtils.getDefaultLoginFormGroup();
   }
 
@@ -24,7 +25,10 @@ export class LoginFormComponent {
   }
   public onSubmit(): void {
     if (this.loginForm.valid) {
-
+      this.disabled = true;
+      setTimeout(() => {
+        this.route.navigate(['/user-management']);
+      }, 1000);
     } else {
       this.markAllFieldsAsTouched();
     }

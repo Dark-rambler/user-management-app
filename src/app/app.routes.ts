@@ -10,17 +10,8 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./modules/login2/login2.component')
   },
-  // {
-  //   path: 'users',
-  //   loadComponent: () => import('./features/user-list/user-list.component').then(m => m.UserListComponent)
-  // },
-  // {
-  //   path: 'users/:uuid',
-  //   loadComponent: () => import('./features/user-detail/user-detail.component').then(m => m.UserDetailComponent)
-  // }
-  // ,
-  // {
-  //   path: 'register',
-  //   loadComponent: () => import('./features/register/register.component').then(m => m.RegisterComponent)
-  // }
+  {
+    path: 'user-management',
+    loadComponent: () => import('./modules/user-management/user-management.component')
+  }
 ];
