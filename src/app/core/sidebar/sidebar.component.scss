@@ -4,4 +4,48 @@
   border-radius: 6px;
   border-width: 1px;
   background-color: #f9fafb;
+  padding: 20px;
+}
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-img {
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+.profile-description {
+  color: var(--primary-color);
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 30px;
+}
+.contacts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #155883;
+}
+.contacts-description {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #4a5568;
 }
