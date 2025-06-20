@@ -1,0 +1,65 @@
+<div class="login-form">
+  <div class="text-form">
+    <h2 class="sub-title">Welcome Back</h2>
+    <p class="welcome-description">Enter your email and password to sign in</p>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Username</mat-label>
+      <input
+        class="login-form-input"
+        matInput
+        placeholder="Your username"
+        formControlName="userName"
+        type="text"
+        autocomplete="userName"
+        aria-label="userName"
+      />
+      <mat-error *ngIf="userName.invalid && userName.touched">
+        {{ getUsernameErrorMessage() }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="formfield">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        class="login-form-input"
+        placeholder="Enter your password"
+        formControlName="password"
+        [type]="showPassword ? 'text' : 'password'"
+        autocomplete="current-password"
+      />
+      <mat-error *ngIf="password.invalid && password.touched">
+        {{ getPasswordErrorMessage() }}
+      </mat-error>
+    </mat-form-field>
+    <section class="example-section">
+      <mat-slide-toggle
+        hideIcon="true"
+        color="primary"
+        class="example-margin"
+        [checked]="showPassword"
+        [disabled]="disabled"
+        (change)="togglePasswordVisibility()"
+      >
+        Show password
+      </mat-slide-toggle>
+    </section>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="submit-button"
+      [disabled]="loginForm.invalid"
+      aria-label="Sign in to your account"
+      >
+      SIGN IN
+    </button>
+  </form>
+
+  <small class="text-support">
+    Having trouble signing in?
+    <span class="contact-support"> Contact Support </span>
+  </small>
+</div>
