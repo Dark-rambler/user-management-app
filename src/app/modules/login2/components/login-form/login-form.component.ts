@@ -27,7 +27,7 @@ export class LoginFormComponent {
     if (this.loginForm.valid) {
       this.disabled = true;
       setTimeout(() => {
-        this.route.navigate(['/user-management']);
+        this.route.navigate(['/app/user-management']);
       }, 1000);
     } else {
       this.markAllFieldsAsTouched();

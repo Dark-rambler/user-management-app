@@ -1,0 +1,85 @@
+.container-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 18px;
+  padding: 0;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    overflow-y: auto;
+  }
+}
+
+app-sidebar {
+  flex-shrink: 0;
+  background-color: #fff;
+  
+  @media (min-width: 768px) {
+    width: 270px;
+    height: auto;
+    overflow: visible;
+  }
+  
+  @media (max-width: 767px) {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    order: 2;
+  }
+}
+
+.right-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  
+  @media (min-width: 768px) {
+    height: auto;
+    overflow: visible; 
+    max-width: calc(100vw - 270px);
+  }
+  
+  @media (max-width: 767px) {
+    width: 100%;
+    min-height: auto;
+    overflow: visible;
+    max-width: none;
+    order: 1;
+  }
+}
+
+app-navbar {
+  flex-shrink: 0;
+  z-index: 1000;
+  
+  @media (min-width: 768px) {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.content-area {
+  flex: 1;
+  
+  @media (min-width: 768px) {
+    padding: 0;
+    overflow: visible;
+  }
+  
+  @media (max-width: 767px) {
+    padding: 0;
+    overflow: visible;
+    min-height: auto;
+  }
+}
