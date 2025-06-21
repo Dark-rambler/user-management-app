@@ -14,12 +14,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
-    StatsComponent
+    StatsComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -31,10 +34,10 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    MatDatepickerModule,    MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     MatSelectModule,
     MatIconModule,
     MatChipsModule
@@ -43,7 +46,8 @@ import { MatChipsModule } from '@angular/material/chips';
     StatsComponent,
     MatIconModule,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    TableComponent
   ]
 })
 export class UserManagementModule { }
