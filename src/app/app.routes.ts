@@ -23,6 +23,11 @@ export const routes: Routes = [
         path: 'user-management',
         loadComponent: () => import('./modules/user-management/user-management.component')
       }
+      ,
+      {
+        path: 'user/:id',
+        loadComponent: () => import('./modules/user/user.component')
+      }
       // Aquí puedes agregar más rutas que necesiten el layout principal
     ]
   }
