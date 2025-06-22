@@ -23,3 +23,27 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .user-management-content {
+    padding: var(--spacing-md);
+  }
+
+  .stats-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+
+    .stat-card mat-card-content {
+      padding: var(--spacing-md);
+    }
+
+    .stat-card .stat-number {
+      font-size: var(--font-size-xl);
+    }
+
+    .stat-card .stat-label {
+      font-size: var(--font-size-xs);
+    }
+  }
+}
