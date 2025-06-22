@@ -19,6 +19,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TableComponent } from './components/table/table.component';
+import { BirthDatePipe } from '../../shared/pipes/birth-date.pipe';
+import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,10 @@ import { TableComponent } from './components/table/table.component';
     MatSortModule,
     MatSelectModule,
     MatChipsModule,
-    MatProgressSpinnerModule
-  ],  exports: [
+    MatProgressSpinnerModule,
+    BirthDatePipe,
+    PhoneFormatPipe
+  ],exports: [
     StatsComponent,
     MatIconModule,
     NavbarComponent,

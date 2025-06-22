@@ -1,12 +1,14 @@
  <nav class=" navbar bg-secondary ">
     <ul class="nav">
-      <li class="nav-item" *ngFor="let item of listItems">
-        <a class="nav-link" routerLinkActive="active">
-          <mat-icon class="material-icons-outlined">{{ item.icon }}</mat-icon>
-          <small class="nav-text">
-            {{ item.name }}
-          </small>
-        </a>
-      </li>
+      @for (item of listItems; track item.name) {
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active">
+            <mat-icon class="material-icons-outlined">{{ item.icon }}</mat-icon>
+            <small class="nav-text">
+              {{ item.name }}
+            </small>
+          </a>
+        </li>
+      }
     </ul>
   </nav>

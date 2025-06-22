@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { User } from '../../../../core/services/user.service';
+import { BirthDatePipe } from '../../../../shared/pipes/birth-date.pipe';
+import { PhoneFormatPipe } from '../../../../shared/pipes/phone-format.pipe';
 
 @Component({
   selector: 'app-table',
@@ -87,23 +89,6 @@ export class TableComponent implements AfterViewInit, OnChanges {
   onRefreshData(): void {
     this.refresh.emit();
   }
-
-  /**
-   * Formatea la fecha de nacimiento para mostrar
-   */
-  formatBirthDate(dateString: string): string {
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('es-ES', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    } catch (error) {
-      return dateString; // Fallback si hay error en el formato
-    }
-  }
-
   /**
    * Navega al detalle del usuario
    */
