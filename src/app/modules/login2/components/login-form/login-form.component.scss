@@ -79,8 +79,8 @@
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background-color: rgba(211, 47, 47, 0.1);
-  color: var(--error-color);
+  background-color: rgba(211, 47, 47, 0.1); // Background translúcido rojo
+  color: #d32f2f;
   font-size: 14px;
   margin-bottom: 16px;
   border-radius: 4px;
@@ -90,4 +90,23 @@
     width: 16px;
     height: 16px;
   }
+}
+
+// Loading spinner con animación de rotación
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

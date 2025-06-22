@@ -17,14 +17,14 @@ import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
     StatsComponent,
     TableComponent
-  ],
-  imports: [
+  ],  imports: [
     CommonModule,
     UserManagementRoutingModule,
     MatIconModule,
@@ -34,20 +34,21 @@ import { TableComponent } from './components/table/table.component';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDatepickerModule,    MatNativeDateModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
-    MatIconModule,
-    MatChipsModule
-  ],
-  exports: [
+    MatChipsModule,
+    MatProgressSpinnerModule
+  ],  exports: [
     StatsComponent,
     MatIconModule,
     NavbarComponent,
     SidebarComponent,
-    TableComponent
+    TableComponent,
+    MatProgressSpinnerModule
   ]
 })
 export class UserManagementModule { }

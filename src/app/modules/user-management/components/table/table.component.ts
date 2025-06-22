@@ -1,153 +1,114 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, ViewChild, AfterViewInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, input, output } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { User } from '../../../../core/services/user.service';
+
 @Component({
   selector: 'app-table',
   standalone: false,
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  public showFiller = false;
+  // Inputs usando signals (Angular 17+)
+  @Input() users: User[] = [];
+  @Input() loading: boolean = false;
+  @Input() error: string | null = null;
+  @Input() currentPage: number = 1;
+  @Input() pageSize: number = 10;
+  @Input() totalUsers: number = 0;
+
+  // Outputs para eventos
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
+  @Output() refresh = new EventEmitter<void>();
   public displayedColumns: string[] = ['id', 'fullName', 'email', 'address', 'phone', 'birthDate', 'actions'];
-  public users: any[]; // Definir el tipo de datos de los usuarios
-  public dataSource
-  constructor(private router: Router) {
-    this.showFiller = false;
-    this.users = [
-      {
-        id: 1,
-        name: 'John Smith',
-        email: 'johnsmith@gmail.com',
-        address: '1600 Pennsylvania Avenue NW, Washington, DC 20500',
-        phone: '(555) 123-4567',
-        birthDate: 'March 12, 2023'
-      },
-      {
-        id: 2,
-        name: 'Olivia Bennett',
-        email: 'ollyben@gmail.com',
-        address: '1 Infinite Loop, Cupertino, CA 95014',
-        phone: '(555) 123-2121',
-        birthDate: 'June 27, 2022'
-      },
-      {
-        id: 3,
-        name: 'Daniel Warren',
-        email: 'dwarren3@gmail.com',
-        address: '350 Fifth Avenue, New York, NY 10118',
-        phone: '(555) 123-4777',
-        birthDate: 'January 8, 2024'
-      },
-      {
-        id: 4,
-        name: 'Chloe Hayes',
-        email: 'chloehye@gmail.com',
-        address: '1600 Amphitheatre Parkway, Mountain View, CA 94043',
-        phone: '(555) 123-6666',
-        birthDate: 'October 5, 2021'
-      },
-      {
-        id: 5,
-        name: 'Marcus Reed',
-        email: 'reeds777@gmail.com',
-        address: '4059 Mt Lee Drive, Hollywood, CA 90068',
-        phone: '(555) 123-1234',
-        birthDate: 'February 19, 2023'
-      },
-      {
-        id: 6,
-        name: 'Olivia Bennett',
-        email: 'ollyben@gmail.com',
-        address: '1 Infinite Loop, Cupertino, CA 95014',
-        phone: '(555) 123-2121',
-        birthDate: 'June 27, 2022'
-      },
-      {
-        id: 7,
-        name: 'Daniel Warren',
-        email: 'dwarren3@gmail.com',
-        address: '350 Fifth Avenue, New York, NY 10118',
-        phone: '(555) 123-4777',
-        birthDate: 'January 8, 2024'
-      },
-      {
-        id: 8,
-        name: 'Chloe Hayes',
-        email: 'chloehye@gmail.com',
-        address: '1600 Amphitheatre Parkway, Mountain View, CA 94043',
-        phone: '(555) 123-6666',
-        birthDate: 'October 5, 2021'
-      },
-      {
-        id: 9,
-        name: 'Marcus Reed',
-        email: 'reeds777@gmail.com',
-        address: '4059 Mt Lee Drive, Hollywood, CA 90068',
-        phone: '(555) 123-1234',
-        birthDate: 'February 19, 2023'
-      }, {
-        id: 10,
-        name: 'Olivia Bennett',
-        email: 'ollyben@gmail.com',
-        address: '1 Infinite Loop, Cupertino, CA 95014',
-        phone: '(555) 123-2121',
-        birthDate: 'June 27, 2022'
-      },
-      {
-        id: 11,
-        name: 'Daniel Warren',
-        email: 'dwarren3@gmail.com',
-        address: '350 Fifth Avenue, New York, NY 10118',
-        phone: '(555) 123-4777',
-        birthDate: 'January 8, 2024'
-      },
-      {
-        id: 12,
-        name: 'Chloe Hayes',
-        email: 'chloehye@gmail.com',
-        address: '1600 Amphitheatre Parkway, Mountain View, CA 94043',
-        phone: '(555) 123-6666',
-        birthDate: 'October 5, 2021'
-      },
-      {
-        id: 13,
-        name: 'Marcus Reed',
-        email: 'reeds777@gmail.com',
-        address: '4059 Mt Lee Drive, Hollywood, CA 90068',
-        phone: '(555) 123-1234',
-        birthDate: 'February 19, 2023'
-      }];
+  public dataSource = new MatTableDataSource<User>([]);
 
-    this.dataSource = new MatTableDataSource(this.users);
+  constructor(private router: Router) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    // Actualizar el dataSource cuando cambien los usuarios
+    if (changes['users'] && this.users) {
+      console.log('📊 Actualizando tabla con', this.users.length, 'usuarios');
+      this.dataSource.data = this.users;
+    }
   }
   ngAfterViewInit() {
-    // Conectar paginator y sort al dataSource
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
-    // Configurar el ordenamiento personalizado para que 'fullName' ordene por 'name'
-    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string) => {
+    // Configurar el ordenamiento personalizado
+    this.dataSource.sortingDataAccessor = (data: User, sortHeaderId: string) => {
       switch (sortHeaderId) {
-        case 'fullName': return data.name;
-        case 'id': return data.name; // Usar name para ordenar por ID también
-        default: return data[sortHeaderId];
+        case 'fullName': return data.name; // Usar name para fullName
+        case 'id': return data.id;
+        case 'email': return data.email;
+        case 'address': return data.address;
+        case 'phone': return data.phone;
+        case 'birthDate': return new Date(data.birthDate).getTime();
+        default: return (data as any)[sortHeaderId];
       }
     };
+
+    // Conectar sort al dataSource (pero no paginator, ya que manejamos paginación externamente)
+    this.dataSource.sort = this.sort;
   }
 
-  public onSelectUser(id: number) {
-    this.router.navigate(['/app/user', id]);
+  /**
+   * Maneja el cambio de página del paginator
+   */
+  onPageEvent(event: PageEvent): void {
+    console.log('📄 Evento de paginación:', event);
+
+    // Si cambió el tamaño de página
+    if (event.pageSize !== this.pageSize) {
+      this.pageSizeChange.emit(event.pageSize);
+    }
+
+    // Si cambió la página (pageIndex es 0-based, pero nuestro servicio usa 1-based)
+    const newPage = event.pageIndex + 1;
+    if (newPage !== this.currentPage) {
+      this.pageChange.emit(newPage);
+    }
+  }
+  /**
+   * Maneja la búsqueda local en los datos actuales
+   */
+  onSearch(searchTerm: string): void {
+    this.dataSource.filter = searchTerm.trim().toLowerCase();
   }
 
-  // Datos de usuarios
+  /**
+   * Refresca los datos
+   */
+  onRefreshData(): void {
+    this.refresh.emit();
+  }
 
-  // DataSource para la tabla (después de definir users)
+  /**
+   * Formatea la fecha de nacimiento para mostrar
+   */
+  formatBirthDate(dateString: string): string {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (error) {
+      return dateString; // Fallback si hay error en el formato
+    }
+  }
+
+  /**
+   * Navega al detalle del usuario
+   */
+  public onSelectUser(userId: string): void {
+    this.router.navigate(['/app/user', userId]);
+  }
 
 }

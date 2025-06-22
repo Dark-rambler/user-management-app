@@ -1,4 +1,17 @@
 <div class="user-management-content">
-<app-stats></app-stats>  
-  <app-table></app-table>
+  <app-stats></app-stats>
+
+  <!-- Pasar datos mediante signals al TableComponent -->
+  <app-table
+    [users]="users()"
+    [loading]="loading()"
+    [error]="error()"
+    [currentPage]="currentPage()"
+    [pageSize]="pageSize()"
+    [totalUsers]="totalUsers()"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+    (refresh)="onRefresh()"
+  >
+  </app-table>
 </div>
