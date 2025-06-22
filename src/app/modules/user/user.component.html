@@ -1,0 +1,68 @@
+
+<div class="profile-container">
+  <!-- 1. Header del perfil -->
+  <div class="profile-header">
+    <div class="profile-header__avatar">
+      <img [src]="user?.avatar || 'profile.jpg'" [alt]="user?.name" class="avatar-image">
+    </div>    <div class="profile-header__info">
+      <h1 class="profile-header__name">{{ user?.name }}</h1>
+      <p class="profile-header__bio">
+        {{ (user?.birthDate | userAge) }}-year-old {{ user?.bio }}
+      </p>
+    </div>
+  </div>
+
+  <!-- 2. Sección de información personal con Angular Material -->
+  <div class="info-section">
+    <div class="info-section__row">
+      <div class="info-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [value]="user?.email" readonly>
+        </mat-form-field>
+      </div>      <div class="info-item">
+        <mat-form-field appearance="outline">
+          <mat-label>Birth Date</mat-label>
+          <input matInput [value]="user?.birthDate | birthDate" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="info-section__row">
+      <div class="info-item info-item--full-width">
+        <mat-form-field appearance="outline" class="info-item__form-field--active">
+          <mat-label>Address</mat-label>
+          <input matInput [value]="user?.address" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="info-section__row">
+      <div class="info-item info-item--full-width">        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput [value]="user?.phone | phoneFormat" readonly>
+          <mat-icon matSuffix class="info-item__icon">expand_more</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <!-- 3. Galería de gatos usando @for -->
+  <div class="cats-gallery">
+    <h2 class="cats-gallery__title">My cats</h2>
+    <div class="cats-gallery__grid">
+      @for (cat of user?.cats; track cat.name) {
+        <div class="cat-card">
+          <div class="cat-card__image-container">
+            <img [src]="cat.image" [alt]="cat.name" class="cat-card__image">
+          </div>
+          <p class="cat-card__name">{{ cat.name }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- 4. Botón de acción -->
+  <div class="action-section">
+    <button mat-stroked-button class="action-section__button" (click)="addCatLoverFriend()">
+      +Add Cat Lover Friend
+    </button>
+  </div>
+</div>

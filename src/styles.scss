@@ -1,15 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-
-// Importar Angular Material Core y Tema
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-
-// Importar Material Design Icons
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-// Importar la fuente Nunito de Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
 
-/* Reset básico y estilos globales */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,11 +12,11 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 // Configurar variables CSS personalizadas para uso en componentes
-:root {
+:root {  
   --primary-color: #155883;
   --primary-light: #3da4c5;
   --primary-dark: #0d3a5a;
@@ -33,10 +25,76 @@ body {
   --surface-color: #ffffff;
   --text-color: #333333;
   --text-secondary: #666666;
-  --error-color: #d32f2f; // Rojo Material Design
+  --error-color: #d32f2f;
+  --primary-blue: #3182ce;
+  --light-gray-bg: #f9fafb;
+  --light-blue-bg: #f0f5ff;
+  --border-color: #e2e8f0;
+  --text-dark: #1a202c;
+  --text-light: #a0aec0;
+
+  // ===== SISTEMA DE TIPOGRAFÍA =====
+  // Tamaños de fuente
+  --font-size-xs: 11px;    // Extra small - Subtexto, metadatos
+  --font-size-sm: 12px;    // Small - Texto secundario, listas
+  --font-size-base: 14px;  // Base - Texto principal
+  --font-size-md: 16px;    // Medium - Texto importante
+  --font-size-lg: 18px;    // Large - Títulos pequeños
+  --font-size-xl: 20px;    // Extra large - Títulos medianos
+  --font-size-2xl: 24px;   // 2X large - Títulos grandes
+  --font-size-3xl: 28px;   // 3X large - Títulos principales
+
+  // Pesos de fuente
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // Alturas de línea
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+
+  // Espaciados
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
 }
 
-// Sobrescribir colores de Angular Material para usar tu color personalizado
+// ===== CLASES UTILITARIAS DE TIPOGRAFÍA =====
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-md { font-size: var(--font-size-md); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+
+.font-light { font-weight: var(--font-weight-light); }
+.font-normal { font-weight: var(--font-weight-normal); }
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-bold { font-weight: var(--font-weight-bold); }
+
+.leading-tight { line-height: var(--line-height-tight); }
+.leading-normal { line-height: var(--line-height-normal); }
+.leading-relaxed { line-height: var(--line-height-relaxed); }
+
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--text-secondary); }
+.text-dark { color: var(--text-dark); }
+.text-light { color: var(--text-light); }
+.text-blue { color: var(--primary-blue); }
+
+.bg-primary { background-color: var(--primary-color); }
+.bg-primary-light { background-color: var(--primary-light); }
+.bg-secondary { background-color: var(--light-gray-bg); }  
+
 .mat-mdc-raised-button.mat-primary {
   --mdc-protected-button-container-color: #155883 !important;
   --mdc-protected-button-label-text-color: white !important;
@@ -53,7 +111,6 @@ body {
   }
 }
 
-// Colores de error consistentes en toda la aplicación
 .mat-mdc-form-field-error {
   color: var(--error-color, #d32f2f) !important;
   font-size: smaller;
