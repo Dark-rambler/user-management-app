@@ -5,22 +5,26 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
+  },  {
     path: 'login',
     loadComponent: () => import('./modules/login/login.component')
   },
-  // {
-  //   path: 'users',
-  //   loadComponent: () => import('./features/user-list/user-list.component').then(m => m.UserListComponent)
-  // },
-  // {
-  //   path: 'users/:uuid',
-  //   loadComponent: () => import('./features/user-detail/user-detail.component').then(m => m.UserDetailComponent)
-  // }
-  // ,
-  // {
-  //   path: 'register',
-  //   loadComponent: () => import('./features/register/register.component').then(m => m.RegisterComponent)
-  // }
+  {
+    path: 'app',
+    loadComponent: () => import('./shared/main-layout.component').then(m => m.MainLayoutComponent),
+    children: [
+      {
+        path: '',
+        redirectTo: 'user-management',
+        pathMatch: 'full'
+      },
+      {
+        path: 'user-management',
+        loadComponent: () => import('./modules/user-management/user-management.component')      },
+      {
+        path: 'user/:id',
+        loadComponent: () => import('./modules/user/user.component')
+      }
+    ]
+  }
 ];

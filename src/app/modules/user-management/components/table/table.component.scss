@@ -1,0 +1,254 @@
+.search-section {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;  mat-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; // Volver a center
+    gap: var(--spacing-xl);
+    padding: var(--spacing-2xl);
+  }.search-bar {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: stretch; // Estirar ambos elementos a la misma altura
+    flex: 1;
+
+    .search-field {
+      flex: 1;
+    }    .search-btn {
+      // Sin height fijo, que se adapte al form field
+      min-width: 120px; // Aumentar ancho del botón
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+
+      mat-icon {
+        margin-right: 0;
+      }
+    }
+  }  .date-filters {
+    display: flex;
+    gap: var(--spacing-lg);
+  }
+}
+
+.users-table {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .users-data-table {
+    width: 100%;    .mat-mdc-header-cell {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .mat-mdc-cell {
+      border-bottom: 1px solid var(--border-color);
+      padding: var(--spacing-md) var(--spacing-lg);
+      font-size: var(--font-size-sm);
+    }    .user-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      font-size: var(--font-size-sm);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }    .view-btn {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: var(--font-size-sm);
+      padding: var(--spacing-sm) var(--spacing-lg);
+    }
+  }
+}
+
+// Paginación - ajustada
+.pagination-card {
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+
+  mat-paginator {
+    background-color: transparent;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl);
+  min-height: 300px;
+  gap: var(--spacing-lg);
+
+  mat-spinner {
+    margin: 0 auto;
+  }
+
+  p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+
+  .error-card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-lg);
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+      }
+
+      p {
+        font-size: var(--font-size-base);
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      button {
+        margin-top: var(--spacing-md);
+      }
+    }
+  }
+}
+
+// Responsive design mejorado - sin !important
+@media (max-width: 768px) {
+  .user-management-content {
+    padding: var(--spacing-md);
+  }
+
+  .search-section {
+    mat-card-content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+    }    .search-bar {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      align-items: stretch; // Hacer que todos los elementos ocupen todo el ancho
+
+      .search-btn {
+        height: 48px; // Altura consistente en móvil
+        width: 100%; // Ocupar todo el ancho disponible
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+
+        mat-icon {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .date-filters {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+  }  .loading-container {
+    min-height: 200px; // Reducir altura en móvil
+    padding: var(--spacing-xl);
+  }
+  .users-table {
+    // Agregar scroll horizontal en móviles
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; // Smooth scrolling en iOS
+    position: relative;
+
+    // Sombra sutil para indicar scroll horizontal
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .users-data-table {
+      font-size: var(--font-size-xs);
+      min-width: 700px; // Ancho mínimo para forzar scroll horizontal
+
+      .mat-mdc-header-cell {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-xs);
+        white-space: nowrap; // Evitar que el texto se corte
+      }
+
+      .mat-mdc-cell {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: var(--font-size-xs);
+        white-space: nowrap; // Evitar que el texto se corte
+      }
+
+      .user-info {
+        gap: var(--spacing-sm);
+        min-width: 150px; // Ancho mínimo para la columna de usuario
+
+        .user-avatar {
+          width: 28px;
+          height: 28px;
+          flex-shrink: 0; // Evitar que la imagen se reduzca
+        }
+      }
+
+      .view-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-xs);
+        white-space: nowrap;
+
+        mat-icon {
+          font-size: 14px;
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+
+  // Mostrar todas las columnas en móvil con scroll
+  .users-data-table {
+    .mat-column-address,
+    .mat-column-phone {
+      display: table-cell; // Mostrar todas las columnas con scroll
+    }
+  }
+
+}
