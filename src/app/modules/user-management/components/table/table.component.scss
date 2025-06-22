@@ -152,16 +152,23 @@
       align-items: stretch;
       gap: var(--spacing-md);
       padding: var(--spacing-md);
-    }
-
-    .search-bar {
+    }    .search-bar {
       flex-direction: column;
       gap: var(--spacing-sm);
+      align-items: stretch; // Hacer que todos los elementos ocupen todo el ancho
 
       .search-btn {
-        height: auto;
-        align-self: flex-start;
+        height: 48px; // Altura consistente en móvil
+        width: 100%; // Ocupar todo el ancho disponible
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-sm);
         padding: var(--spacing-md) var(--spacing-lg);
+
+        mat-icon {
+          margin-right: 0;
+        }
       }
     }
 

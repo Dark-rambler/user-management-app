@@ -1,8 +1,3 @@
-/**
- * Interfaces relacionadas con el modelo de Usuario
- */
-
-// Interface para el usuario tal como viene de la API Random User
 export interface RandomUserResponse {
   results: RandomUser[];
   info: {
@@ -70,7 +65,6 @@ export interface RandomUser {
   nat: string;
 }
 
-// Interface para el modelo interno de usuario (después de transformación)
 export interface User {
   id: string;
   name: string;
@@ -84,7 +78,6 @@ export interface User {
   fullAddress: string;
 }
 
-// Interface para el ViewModel del usuario en la vista de detalle
 export interface UserDetailViewModel {
   id: string;
   name: string;
@@ -99,13 +92,11 @@ export interface UserDetailViewModel {
   cats: CatData[];
 }
 
-// Interface para los datos de los gatos
 export interface CatData {
   name: string;
   image: string;
 }
 
-// Interface para el estado del servicio de usuarios
 export interface UserServiceState {
   users: User[];
   loading: boolean;

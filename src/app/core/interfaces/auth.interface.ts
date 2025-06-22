@@ -1,7 +1,3 @@
-/**
- * Interfaces relacionadas con autenticación y login
- */
-
 export interface LoginCredentials {
   username: string;
   password: string;

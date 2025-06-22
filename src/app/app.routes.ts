@@ -5,10 +5,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
+  },  {
     path: 'login',
-    loadComponent: () => import('./modules/login2/login2.component')
+    loadComponent: () => import('./modules/login/login.component')
   },
   {
     path: 'app',
@@ -21,14 +20,11 @@ export const routes: Routes = [
       },
       {
         path: 'user-management',
-        loadComponent: () => import('./modules/user-management/user-management.component')
-      }
-      ,
+        loadComponent: () => import('./modules/user-management/user-management.component')      },
       {
         path: 'user/:id',
         loadComponent: () => import('./modules/user/user.component')
       }
-      // Aquí puedes agregar más rutas que necesiten el layout principal
     ]
   }
 ];

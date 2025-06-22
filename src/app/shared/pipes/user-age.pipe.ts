@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'userAge',
   standalone: true
 })
-export class UserAgePipe implements PipeTransform {  transform(birthDateString: string | undefined | null): number {
+export class UserAgePipe implements PipeTransform {
+  transform(birthDateString: string | undefined | null): number {
     if (!birthDateString) return 0;
 
     try {

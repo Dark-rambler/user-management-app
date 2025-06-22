@@ -29,23 +29,20 @@ export class LoginFormComponent {
     Object.keys(this.loginForm.controls).forEach(key => {
       this.loginForm.get(key)?.markAsTouched();
     });
-  } public onSubmit(): void {
+  }
+
+  public onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.disabled = true;
-      this.loginError = '';
-
-      const credentials: LoginCredentials = {
+      this.loginError = '';      const credentials: LoginCredentials = {
         username: this.loginForm.get('userName')?.value,
         password: this.loginForm.get('password')?.value
       };
 
-      console.log('🚀 Iniciando login con:', { username: credentials.username });
-
       this.authService.login(credentials).subscribe({
         next: (response) => {
           if (response.success) {
-            console.log('Login exitoso, redirigiendo...');
             this.route.navigate(['/app/user-management']);
           }
         },

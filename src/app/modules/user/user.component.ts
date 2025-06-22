@@ -15,7 +15,8 @@ import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
 
 @Component({
   selector: 'app-user',
-  standalone: true,  imports: [
+  standalone: true,
+  imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
@@ -38,50 +39,38 @@ export default class UserComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService
   ) { }
-
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')!;
-    console.log('🔍 Buscando usuario con ID:', this.id);
-
     this.loadUserFromAPI();
   }
-
   /**
    * Carga el usuario desde la API y adapta los datos al formato del template existente
    */
   private loadUserFromAPI(): void {
-    // Primero buscar en el estado actual del servicio
     const currentUsers = this.userService.users();
     let foundUser = currentUsers.find((user: User) => user.id === this.id);
 
     if (foundUser) {
       this.user = this.adaptUserData(foundUser);
-      console.log('✅ Usuario encontrado en estado actual:', this.user);
     } else {
-      // Si no está en el estado actual, cargar más usuarios
-      console.log('🔄 Cargando usuarios desde API...');
       this.userService.getUsers(50).subscribe({
         next: (users: User[]) => {
           foundUser = users.find((user: User) => user.id === this.id);
           if (foundUser) {
             this.user = this.adaptUserData(foundUser);
-            console.log('✅ Usuario encontrado en API:', this.user);
           } else {
-            // Fallback: usar el primer usuario disponible
             if (users.length > 0) {
               this.user = this.adaptUserData(users[0]);
-              console.log('⚠️ Usuario no encontrado, usando primer usuario disponible');
             }
           }
         },
         error: (error) => {
-          console.error('❌ Error al cargar usuarios:', error);
-          // Fallback con datos de ejemplo
           this.user = this.getDefaultUser();
-        }
-      });
+        }      });
     }
-  }  /**
+  }
+
+  /**
    * Adapta los datos del usuario de la API al formato esperado por el template
    */
   private adaptUserData(apiUser: User): UserDetailViewModel {
@@ -91,12 +80,12 @@ export default class UserComponent implements OnInit {
       email: apiUser.email,
       address: apiUser.address,
       phone: apiUser.phone,
-      birthDate: apiUser.birthDate, // Sin formatear, se usará pipe en template
+      birthDate: apiUser.birthDate,
       bio: this.generateBio(apiUser),
       avatar: apiUser.picture,
-      contacts: Math.floor(Math.random() * 100) + 10, // Simular contactos
-      profileViews: Math.floor(Math.random() * 20) + 1, // Simular visualizaciones
-      cats: this.generateCatsData() // Datos de gatos simulados
+      contacts: Math.floor(Math.random() * 100) + 10,
+      profileViews: Math.floor(Math.random() * 20) + 1,
+      cats: this.generateCatsData()
     };
   }
   /**
@@ -104,9 +93,9 @@ export default class UserComponent implements OnInit {
    */
   private generateBio(user: User): string {
     const genderText = user.gender === 'male' ? 'man' : 'woman';
-    // La edad se calculará usando el pipe en el template
     return `${genderText} who loves cats & enjoys life. 🐾`;
   }
+
   /**
    * Genera datos de gatos para mantener la funcionalidad del template
    */
@@ -119,7 +108,7 @@ export default class UserComponent implements OnInit {
       'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?w=400'
     ];
 
-    const numCats = Math.floor(Math.random() * 4) + 1; // 1-4 gatos
+    const numCats = Math.floor(Math.random() * 4) + 1;
     const cats: CatData[] = [];
 
     for (let i = 0; i < numCats; i++) {
@@ -131,6 +120,7 @@ export default class UserComponent implements OnInit {
 
     return cats;
   }
+
   /**
    * Datos de usuario por defecto en caso de error
    */
@@ -151,8 +141,7 @@ export default class UserComponent implements OnInit {
       ]
     };
   }
-
   addCatLoverFriend() {
-    console.log('Adding cat lover friend for user:', this.user?.name);
+    // Add cat lover friend functionality
   }
 }

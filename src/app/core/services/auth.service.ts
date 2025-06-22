@@ -12,10 +12,7 @@ export class AuthService {
   private readonly loginDelay = environment.config.loginDelay;
 
   constructor() {}
-
   login(credentials: LoginCredentials): Observable<LoginResponse> {
-    console.log('🔐 Intentando autenticación...', { username: credentials.username });
-
     return of(null).pipe(
       delay(this.loginDelay),
       map(() => {
@@ -31,15 +28,11 @@ export class AuthService {
               username: user.username,
               token: token
             }
-          };
-
-          localStorage.setItem('authToken', token);
+          };          localStorage.setItem('authToken', token);
           localStorage.setItem('currentUser', user.username);
 
-          console.log('✅ Login exitoso:', response);
           return response;
         } else {
-          console.log('❌ Credenciales inválidas');
           throw new Error('Credenciales inválidas');
         }
       })

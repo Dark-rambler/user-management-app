@@ -4,10 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'phoneFormat',
   standalone: true
 })
-export class PhoneFormatPipe implements PipeTransform {  transform(phone: string | undefined | null): string {
-    if (!phone) return '';
-
-    // Remover caracteres no numéricos excepto + y -
+export class PhoneFormatPipe implements PipeTransform {
+  transform(phone: string | undefined | null): string {
+    if (!phone) return '';    // Remover caracteres no numéricos excepto + y -
     const cleaned = phone.replace(/[^\d\+\-\(\)\s]/g, '');
 
     // Si ya tiene formato, devolverlo

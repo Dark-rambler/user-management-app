@@ -11,20 +11,16 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private readonly baseUrl = 'https://randomuser.me/api/';
+export class UserService {  private readonly baseUrl = 'https://randomuser.me/api/';
 
-  // Signals para el estado reactivo
   private state = signal<UserServiceState>({
     users: [],
     loading: false,
     error: null,
     currentPage: 1,
     pageSize: 10,
-    totalUsers: 0
-  });
+    totalUsers: 0  });
 
-  // Signals computados para exponer el estado
   users = computed(() => this.state().users);
   loading = computed(() => this.state().loading);
   error = computed(() => this.state().error);
@@ -54,29 +50,22 @@ export class UserService {
           totalUsers: pageSize * 10 // Simular total para demo
         });
       }),
-      catchError(error => {
-        this.updateState({
+      catchError(error => {        this.updateState({
           loading: false,
           error: 'Error al cargar usuarios. Verifique su conexión.'
         });
-        console.error('❌ Error al cargar usuarios:', error);
         return of([]);
       })
     );
   }
-
   /**
    * Obtiene una lista de usuarios aleatorios (método legacy)
-   * @param count Número de usuarios a obtener
-   * @returns Observable con array de usuarios transformados
    */
   getUsers(count: number = 10): Observable<User[]> {
     return this.getUsersPaginated(1, count);
   }
-
   /**
    * Cambia a una página específica
-   * @param page Número de página
    */
   goToPage(page: number): void {
     if (page > 0) {
@@ -86,7 +75,6 @@ export class UserService {
 
   /**
    * Actualiza el tamaño de página y recarga los datos
-   * @param pageSize Nuevo tamaño de página
    */
   setPageSize(pageSize: number): void {
     this.getUsersPaginated(1, pageSize).subscribe();
@@ -101,7 +89,6 @@ export class UserService {
 
   /**
    * Actualiza el estado interno
-   * @param updates Actualizaciones parciales del estado
    */
   private updateState(updates: Partial<UserServiceState>): void {
     this.state.update(current => ({ ...current, ...updates }));
@@ -109,8 +96,6 @@ export class UserService {
 
   /**
    * Transforma los datos de la API al modelo interno
-   * @param randomUsers Array de usuarios de la API
-   * @returns Array de usuarios transformados
    */
   private transformUsers(randomUsers: RandomUser[]): User[] {
     return randomUsers.map((user, index) => ({
@@ -126,11 +111,8 @@ export class UserService {
       fullAddress: this.getFullAddress(user.location)
     }));
   }
-
   /**
    * Formatea la dirección del usuario
-   * @param location Objeto location de la API
-   * @returns Dirección formateada
    */
   private formatAddress(location: any): string {
     return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}`;
@@ -138,19 +120,15 @@ export class UserService {
 
   /**
    * Obtiene la dirección completa del usuario
-   * @param location Objeto location de la API
-   * @returns Dirección completa formateada
    */
   private getFullAddress(location: any): string {
     return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}, ${location.country}, ${location.postcode}`;
   }
+
   /**
    * Formatea la fecha de nacimiento
-   * @param dateString Fecha en formato ISO
-   * @returns Fecha en formato ISO para que funcione con el pipe date de Angular
    */
   private formatDate(dateString: string): string {
-    // Mantener la fecha en formato ISO para que funcione con el pipe de Angular
     return dateString;
   }
 }

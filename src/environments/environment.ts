@@ -1,4 +1,3 @@
-// src/environments/environment.ts
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api',
@@ -10,8 +9,7 @@ export const environment = {
       { "username": "cuenta_de_prueba", "password": "ContraseñaDébil4%" },
       { "username": "admin_user", "password": "AdminPass5^" }
     ]
-  },
-  config: {
-    loginDelay: 500 // 0.5 segundos
+  },  config: {
+    loginDelay: 500
   }
 };
