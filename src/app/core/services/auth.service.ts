@@ -2,20 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-
-export interface LoginCredentials {
-  username: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  success: boolean;
-  message: string;
-  user?: {
-    username: string;
-    token: string;
-  };
-}
+import { LoginCredentials, LoginResponse } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'

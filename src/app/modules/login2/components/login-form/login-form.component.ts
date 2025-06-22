@@ -2,7 +2,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormUtils } from '../../../../core/utils/form-group';
 import { Router } from '@angular/router';
-import { AuthService, LoginCredentials } from '../../../../core/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { LoginCredentials } from '../../../../core/interfaces';
 
 @Component({
   selector: 'app-login-form',

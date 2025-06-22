@@ -3,7 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { User } from '../../../../core/services/user.service';
+import { User } from '../../../../core/interfaces';
 import { BirthDatePipe } from '../../../../shared/pipes/birth-date.pipe';
 import { PhoneFormatPipe } from '../../../../shared/pipes/phone-format.pipe';
 

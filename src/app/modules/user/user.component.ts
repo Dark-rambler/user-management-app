@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { UserService, User } from '../../core/services/user.service';
+import { UserService } from '../../core/services/user.service';
+import { User, UserDetailViewModel, CatData } from '../../core/interfaces';
 import { BirthDatePipe } from '../../shared/pipes/birth-date.pipe';
 import { UserAgePipe } from '../../shared/pipes/user-age.pipe';
 import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
@@ -31,7 +32,7 @@ import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
 })
 export default class UserComponent implements OnInit {
   id!: string;
-  user: any; // Mantenemos tipo any para compatibilidad con el template existente
+  user: UserDetailViewModel | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,11 +81,10 @@ export default class UserComponent implements OnInit {
         }
       });
     }
-  }
-  /**
+  }  /**
    * Adapta los datos del usuario de la API al formato esperado por el template
    */
-  private adaptUserData(apiUser: User): any {
+  private adaptUserData(apiUser: User): UserDetailViewModel {
     return {
       id: apiUser.id,
       name: apiUser.name,
@@ -99,22 +99,6 @@ export default class UserComponent implements OnInit {
       cats: this.generateCatsData() // Datos de gatos simulados
     };
   }
-
-  /**
-   * Formatea la fecha de nacimiento para el template
-   */
-  private formatBirthDate(dateString: string): string {
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    } catch (error) {
-      return dateString;
-    }
-  }
   /**
    * Genera una bio basada en los datos del usuario
    */
@@ -123,31 +107,10 @@ export default class UserComponent implements OnInit {
     // La edad se calculará usando el pipe en el template
     return `${genderText} who loves cats & enjoys life. 🐾`;
   }
-
-  /**
-   * Calcula la edad del usuario
-   */
-  private calculateAge(birthDateString: string): number {
-    try {
-      const birthDate = new Date(birthDateString);
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      return age;
-    } catch (error) {
-      return 25; // Edad por defecto
-    }
-  }
-
   /**
    * Genera datos de gatos para mantener la funcionalidad del template
    */
-  private generateCatsData(): any[] {
+  private generateCatsData(): CatData[] {
     const catNames = ['Whiskers', 'Mittens', 'Shadow', 'Luna', 'Oliver', 'Bella'];
     const catImages = [
       'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400',
@@ -157,7 +120,7 @@ export default class UserComponent implements OnInit {
     ];
 
     const numCats = Math.floor(Math.random() * 4) + 1; // 1-4 gatos
-    const cats = [];
+    const cats: CatData[] = [];
 
     for (let i = 0; i < numCats; i++) {
       cats.push({
@@ -168,18 +131,17 @@ export default class UserComponent implements OnInit {
 
     return cats;
   }
-
   /**
    * Datos de usuario por defecto en caso de error
    */
-  private getDefaultUser(): any {
+  private getDefaultUser(): UserDetailViewModel {
     return {
       id: 'default',
       name: 'User Not Found',
       email: 'user@example.com',
       address: 'Address not available',
       phone: 'Phone not available',
-      birthDate: 'January 1, 1990',
+      birthDate: '1990-01-01T00:00:00Z',
       bio: 'Cat enthusiast & full-time feline cuddler. 🐾',
       avatar: 'profile.jpg',
       contacts: 50,
