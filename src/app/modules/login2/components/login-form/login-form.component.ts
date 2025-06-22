@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { FormUtils } from '../../../../core/utils/form-group';
 import { Router } from '@angular/router';
+import { AuthService, LoginCredentials } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,8 +14,13 @@ export class LoginFormComponent {
   public showPassword: boolean = false;
   public disabled: boolean = false;
   public loginForm: FormGroup;
+  public loginError: string = '';
+  public isLoading: boolean = false;
 
-  constructor(private route: Router) {
+  constructor(
+    private route: Router,
+    private authService: AuthService
+  ) {
     this.loginForm = FormUtils.getDefaultLoginFormGroup();
   }
 
@@ -22,13 +28,36 @@ export class LoginFormComponent {
     Object.keys(this.loginForm.controls).forEach(key => {
       this.loginForm.get(key)?.markAsTouched();
     });
-  }
-  public onSubmit(): void {
+  } public onSubmit(): void {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       this.disabled = true;
-      setTimeout(() => {
-        this.route.navigate(['/app/user-management']);
-      }, 1000);
+      this.loginError = '';
+
+      const credentials: LoginCredentials = {
+        username: this.loginForm.get('userName')?.value,
+        password: this.loginForm.get('password')?.value
+      };
+
+      console.log('🚀 Iniciando login con:', { username: credentials.username });
+
+      this.authService.login(credentials).subscribe({
+        next: (response) => {
+          if (response.success) {
+            console.log('Login exitoso, redirigiendo...');
+            this.route.navigate(['/app/user-management']);
+          }
+        },
+        error: (error) => {
+          this.loginError = error.message || 'Error de autenticación';
+          this.isLoading = false;
+          this.disabled = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.disabled = false;
+        }
+      });
     } else {
       this.markAllFieldsAsTouched();
     }

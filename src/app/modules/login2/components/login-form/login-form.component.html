@@ -44,17 +44,27 @@
         (change)="togglePasswordVisibility()"
       >
         Show password
-      </mat-slide-toggle>
-    </section>
+      </mat-slide-toggle>    </section>
+
+    <!-- Mensaje de error -->
+    <div *ngIf="loginError" class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ loginError }}
+    </div>
+
     <button
       mat-raised-button
       color="primary"
       type="submit"
       class="submit-button"
-      [disabled]="loginForm.invalid"
+      [disabled]="loginForm.invalid || isLoading"
       aria-label="Sign in to your account"
-      >
-      SIGN IN
+    >
+      <span *ngIf="!isLoading">SIGN IN</span>
+      <span *ngIf="isLoading" class="loading-content">
+        <mat-icon class="loading-spinner">refresh</mat-icon>
+        Authenticating...
+      </span>
     </button>
   </form>
 
