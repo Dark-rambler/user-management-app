@@ -4,10 +4,10 @@
   min-height: 100vh;
   margin: 18px;
   padding: 0;
+  position: relative;
 
   @media (min-width: 768px) {
     flex-direction: row;
-    overflow-y: auto;
   }
 }
 
@@ -18,14 +18,56 @@ app-sidebar {
     width: 270px;
     height: auto;
     overflow: visible;
+    position: relative;
+    background-color: #fff;
   }
+  @media (max-width: 767px) {
+    // En móvil: sidebar como overlay separado del navbar
+    position: fixed;
+    top: 76px; // Altura del navbar + margen para separar
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 76px); // Restar la altura del navbar
+    background-color: #fff;
+    z-index: 1000;
+    overflow-y: auto;
+    transform: translateX(-100%); // Oculto por defecto
+    transition: transform 0.3s ease-in-out;
+
+    // Cuando está abierto
+    &.sidebar-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Overlay para cerrar sidebar en móvil
+.sidebar-overlay {
+  display: none;
 
   @media (max-width: 767px) {
-    width: 100%;
-    height: auto;
-    min-height: auto;
-    overflow: visible;
-    order: 2;
+    display: block;
+    position: fixed;
+    top: 76px; // Comenzar debajo del navbar
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out forwards;
+    cursor: pointer;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -37,7 +79,7 @@ app-sidebar {
   @media (min-width: 768px) {
     height: auto;
     overflow: visible;
-    max-width: calc(100vw - 270px);
+    max-width: calc(100vw - 270px - 36px); // 36px = margin del container
   }
 
   @media (max-width: 767px) {
@@ -45,7 +87,6 @@ app-sidebar {
     min-height: auto;
     overflow: visible;
     max-width: none;
-    order: 1;
   }
 }
 

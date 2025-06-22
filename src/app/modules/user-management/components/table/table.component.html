@@ -1,15 +1,20 @@
 <!-- Barra de búsqueda y filtros usando Material -->
 <mat-card class="search-section">
-    <mat-card-content>
-        <div class="search-bar">
+    <mat-card-content>        <div class="search-bar">
             <mat-form-field appearance="outline" class="search-field">
                 <mat-label>Find people</mat-label>
-                <input matInput placeholder="Search for users..." #searchInput (keyup)="onSearch(searchInput.value)">
-                <mat-icon matSuffix>search</mat-icon>
+                <input matInput placeholder="Search for users..." #searchInput
+                       (keyup.enter)="onSearchClick(searchInput.value)">
+                <button matSuffix mat-icon-button
+                        *ngIf="searchInput.value"
+                        (click)="onClearSearch(searchInput)"
+                        aria-label="Clear search">
+                    <mat-icon>close</mat-icon>
+                </button>
             </mat-form-field>
-            <button mat-raised-button color="primary" class="search-btn" (click)="onRefreshData()">
-                <mat-icon>refresh</mat-icon>
-                REFRESH
+            <button mat-raised-button color="primary" class="search-btn" (click)="onSearchClick(searchInput.value)">
+                <mat-icon>search</mat-icon>
+                Search
             </button>
         </div>
         <div class="date-filters">
@@ -29,7 +34,6 @@
     </mat-card-content>
 </mat-card>
 
-<!-- Estado de carga y errores usando @if -->
 @if (loading) {
     <div class="loading-container">
         <mat-spinner></mat-spinner>

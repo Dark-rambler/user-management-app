@@ -2,26 +2,34 @@
   margin-bottom: 20px;
   background-color: #fff;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  mat-card-content {
+  border-radius: 8px;  mat-card-content {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; // Volver a center
     gap: var(--spacing-xl);
     padding: var(--spacing-2xl);
-  }
-  .search-bar {
+  }.search-bar {
     display: flex;
     gap: var(--spacing-lg);
-    align-items: center;
+    align-items: stretch; // Estirar ambos elementos a la misma altura
     flex: 1;
 
     .search-field {
       flex: 1;
-    }
-  }
+    }    .search-btn {
+      // Sin height fijo, que se adapte al form field
+      min-width: 120px; // Aumentar ancho del botón
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
 
-  .date-filters {
+      mat-icon {
+        margin-right: 0;
+      }
+    }
+  }  .date-filters {
     display: flex;
     gap: var(--spacing-lg);
   }

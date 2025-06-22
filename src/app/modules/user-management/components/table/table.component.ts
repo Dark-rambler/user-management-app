@@ -75,12 +75,27 @@ export class TableComponent implements AfterViewInit, OnChanges {
     if (newPage !== this.currentPage) {
       this.pageChange.emit(newPage);
     }
-  }
-  /**
+  }  /**
    * Maneja la búsqueda local en los datos actuales
    */
   onSearch(searchTerm: string): void {
     this.dataSource.filter = searchTerm.trim().toLowerCase();
+  }
+  /**
+   * Maneja la búsqueda cuando se presiona el botón o Enter
+   */
+  onSearchClick(searchTerm: string): void {
+    console.log('🔍 Ejecutando búsqueda:', searchTerm);
+    this.onSearch(searchTerm);
+  }
+
+  /**
+   * Limpia la búsqueda
+   */
+  onClearSearch(searchInput: HTMLInputElement): void {
+    searchInput.value = '';
+    this.onSearch('');
+    searchInput.focus();
   }
 
   /**
