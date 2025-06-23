@@ -33,5 +33,5 @@ import { SidebarService } from '../core/services/sidebar.service';
   styleUrls: ['./main-layout.component.scss']
 })
 export class MainLayoutComponent {
-  sidebarService = inject(SidebarService);
+  public sidebarService = inject(SidebarService);
 }

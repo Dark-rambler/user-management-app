@@ -9,9 +9,9 @@ import { SidebarService } from '../services/sidebar.service';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-  sidebarService = inject(SidebarService);
+  public sidebarService = inject(SidebarService);
 
-  closeSidebar() {
+  public closeSidebar() {
     this.sidebarService.close();
   }
 }
