@@ -2,11 +2,24 @@
 .login-banner {
   color: var(--primary-color);
   text-align: center;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
 }
 
 .title-container {
-  min-width: 490px;
+  width: 100%;
+  max-width: 490px;
   min-height: 136px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    min-height: auto;
+    padding: 0 16px;
+  }
 }
 
 .main-title {
@@ -14,6 +27,10 @@
   font-size: 48px;
   font-weight: 900;
   color: var(--primary-color);
+
+  @media (max-width: 768px) {
+    font-size: clamp(28px, 6vw, 48px);
+  }
 }
 
 // =============================================================================
@@ -58,6 +75,14 @@
   // Mejora la calidad de renderizado de las capas SVG
   image-rendering: crisp-edges;
   image-rendering: -webkit-optimize-contrast;
+
+  @media (max-width: 768px) {
+    transform: scale(0.8);
+  }
+
+  @media (max-width: 480px) {
+    transform: scale(0.7);
+  }
 }
 
 // =============================================================================

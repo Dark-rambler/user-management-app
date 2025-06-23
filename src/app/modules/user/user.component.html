@@ -1,6 +1,5 @@
 
 <div class="profile-container">
-  <!-- 1. Header del perfil -->
   <div class="profile-header">
     <div class="profile-header__avatar">
       <img [src]="user?.avatar || 'profile.jpg'" [alt]="user?.name" class="avatar-image">
@@ -12,7 +11,6 @@
     </div>
   </div>
 
-  <!-- 2. Sección de información personal con Angular Material -->
   <div class="info-section">
     <div class="info-section__row">
       <div class="info-item">
@@ -44,7 +42,6 @@
       </div>
     </div>
   </div>
-  <!-- 3. Galería de gatos usando @for -->
   <div class="cats-gallery">
     <h2 class="cats-gallery__title">My cats</h2>
     <div class="cats-gallery__grid">
@@ -59,9 +56,8 @@
     </div>
   </div>
 
-  <!-- 4. Botón de acción -->
   <div class="action-section">
-    <button mat-stroked-button class="action-section__button" (click)="addCatLoverFriend()">
+    <button mat-stroked-button class="action-section__button">
       +Add Cat Lover Friend
     </button>
   </div>

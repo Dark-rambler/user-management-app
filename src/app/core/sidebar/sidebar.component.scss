@@ -23,12 +23,10 @@ a {
     overflow-y: auto;
     border-right: none;
     border-top: none;
-    // Reducir padding top ya que el sidebar comienza debajo del navbar
     padding-top: 20px;
   }
 }
 
-// Botón de cerrar solo visible en móvil
 .close-button {
   display: none;
   @media (max-width: 767px) {
@@ -68,18 +66,15 @@ a {
   border: 1px solid var(--border-color);
   flex-shrink: 0;
 
-  // Pantallas grandes
   @media (min-width: 768px) {
     margin-bottom: 1rem;
   }
 
-  // Pantallas pequeñas
   @media (max-width: 767px) {
     margin-bottom: 1rem;
   }
 }
 
-/* ===== PROFILE CARD ===== */
 .profile-header {
   display: flex;
   flex-direction: column;

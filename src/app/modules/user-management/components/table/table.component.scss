@@ -5,20 +5,19 @@
   border-radius: 8px;  mat-card-content {
     display: flex;
     justify-content: space-between;
-    align-items: center; // Volver a center
+    align-items: center;
     gap: var(--spacing-xl);
     padding: var(--spacing-2xl);
   }.search-bar {
     display: flex;
     gap: var(--spacing-lg);
-    align-items: stretch; // Estirar ambos elementos a la misma altura
+    align-items: stretch;
     flex: 1;
 
     .search-field {
       flex: 1;
     }    .search-btn {
-      // Sin height fijo, que se adapte al form field
-      min-width: 120px; // Aumentar ancho del botón
+      min-width: 120px;
       height: 55px;
       display: flex;
       align-items: center;
@@ -73,7 +72,6 @@
   }
 }
 
-// Paginación - ajustada
 .pagination-card {
   background-color: #fff;
   border: 1px solid var(--border-color);
@@ -140,7 +138,6 @@
   }
 }
 
-// Responsive design mejorado - sin !important
 @media (max-width: 768px) {
   .user-management-content {
     padding: var(--spacing-md);
@@ -155,11 +152,11 @@
     }    .search-bar {
       flex-direction: column;
       gap: var(--spacing-sm);
-      align-items: stretch; // Hacer que todos los elementos ocupen todo el ancho
+      align-items: stretch;
 
       .search-btn {
-        height: 48px; // Altura consistente en móvil
-        width: 100%; // Ocupar todo el ancho disponible
+        height: 48px;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -181,16 +178,14 @@
       }
     }
   }  .loading-container {
-    min-height: 200px; // Reducir altura en móvil
+    min-height: 200px;
     padding: var(--spacing-xl);
   }
   .users-table {
-    // Agregar scroll horizontal en móviles
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; // Smooth scrolling en iOS
+    -webkit-overflow-scrolling: touch;
     position: relative;
 
-    // Sombra sutil para indicar scroll horizontal
     &::after {
       content: '';
       position: absolute;
@@ -204,28 +199,28 @@
 
     .users-data-table {
       font-size: var(--font-size-xs);
-      min-width: 700px; // Ancho mínimo para forzar scroll horizontal
+      min-width: 700px;
 
       .mat-mdc-header-cell {
         padding: var(--spacing-sm) var(--spacing-md);
         font-size: var(--font-size-xs);
-        white-space: nowrap; // Evitar que el texto se corte
+        white-space: nowrap;
       }
 
       .mat-mdc-cell {
         padding: var(--spacing-sm) var(--spacing-md);
         font-size: var(--font-size-xs);
-        white-space: nowrap; // Evitar que el texto se corte
+        white-space: nowrap;
       }
 
       .user-info {
         gap: var(--spacing-sm);
-        min-width: 150px; // Ancho mínimo para la columna de usuario
+        min-width: 150px;
 
         .user-avatar {
           width: 28px;
           height: 28px;
-          flex-shrink: 0; // Evitar que la imagen se reduzca
+          flex-shrink: 0;
         }
       }
 
@@ -243,11 +238,10 @@
     }
   }
 
-  // Mostrar todas las columnas en móvil con scroll
   .users-data-table {
     .mat-column-address,
     .mat-column-phone {
-      display: table-cell; // Mostrar todas las columnas con scroll
+      display: table-cell;
     }
   }
 

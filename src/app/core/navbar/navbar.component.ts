@@ -10,7 +10,7 @@ import { SidebarService } from '../services/sidebar.service';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  sidebarService = inject(SidebarService);
+  public sidebarService = inject(SidebarService);
 
   public listItems = [
     { name: 'Home', icon: 'home', route: '/user-management/users' },
@@ -20,7 +20,7 @@ export class NavbarComponent {
     { name: 'Notifications', icon: 'notifications', route: '/user-management/help' }
   ];
 
-  toggleSidebar() {
+  public toggleSidebar() {
     this.sidebarService.toggle();
   }
 }

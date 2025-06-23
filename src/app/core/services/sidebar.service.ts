@@ -16,19 +16,19 @@ export class SidebarService {
     });
   }
 
-  get isOpen() {
+  public get isOpen() {
     return this._isOpen.asReadonly();
   }
 
-  toggle() {
+  public toggle() {
     this._isOpen.update(current => !current);
   }
 
-  open() {
+  public open() {
     this._isOpen.set(true);
   }
 
-  close() {
+  public close() {
     this._isOpen.set(false);
   }
 }
