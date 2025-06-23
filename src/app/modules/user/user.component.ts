@@ -52,7 +52,8 @@ export default class UserComponent implements OnInit {
 
     if (foundUser) {
       this.user = this.adaptUserData(foundUser);
-    } else {      this.userService.getUsers(50)
+    } else {
+      this.userService.getUsers(50)
       .pipe(
         takeUntilDestroyed(this.destroyRef)
       )
@@ -71,7 +72,8 @@ export default class UserComponent implements OnInit {
           this.user = this.getDefaultUser();
         }
       });
-    }  }
+    }
+  }
 
   private adaptUserData(apiUser: User): UserDetailViewModel {
     return {
@@ -86,32 +88,32 @@ export default class UserComponent implements OnInit {
       contacts: Math.floor(Math.random() * 100) + 10,
       profileViews: Math.floor(Math.random() * 20) + 1,
       cats: this.generateCatsData()
-    };  }
+    };
+  }
   private generateBio(user: User): string {
     const genderText = user.gender === 'male' ? 'man' : 'woman';
-    return `${genderText} who loves cats & enjoys life. 🐾`;  }
-
+    return `${genderText} who loves cats & enjoys life. 🐾`;
+  }
   private generateCatsData(): CatData[] {
-    const catNames = ['Whiskers', 'Mittens', 'Shadow', 'Luna', 'Oliver', 'Bella'];
+    const catNames = ['Whiskers', 'Mittens', 'Shadow', 'Luna'];
     const catImages = [
-      'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400',
-      'https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=400',
-      'https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400',
-      'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?w=400'
+      'images/cats/cats.png',
+      'images/cats/cats3.png',
+      'images/cats/cats2.png',
+      'images/cats/cats1.png',
     ];
 
-    const numCats = Math.floor(Math.random() * 4) + 1;
     const cats: CatData[] = [];
 
-    for (let i = 0; i < numCats; i++) {
+    for (let i = 0; i < catImages.length; i++) {
       cats.push({
-        name: catNames[Math.floor(Math.random() * catNames.length)],
-        image: catImages[i % catImages.length]
+        name: catNames[i],
+        image: catImages[i]
       });
     }
 
-    return cats;  }
-
+    return cats;
+  }
   private getDefaultUser(): UserDetailViewModel {
     return {
       id: 'default',
@@ -125,9 +127,12 @@ export default class UserComponent implements OnInit {
       contacts: 50,
       profileViews: 3,
       cats: [
-        { name: 'Default Cat', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400' }
+        { name: 'Whiskers', image: 'images/cats/cats.png' },
+        { name: 'Mittens', image: 'images/cats/cats3.png' },
+        { name: 'Shadow', image: 'images/cats/cats2.png' },
+        { name: 'Luna', image: 'images/cats/cats1.png' }
       ]
     };
   }
-  
+
 }

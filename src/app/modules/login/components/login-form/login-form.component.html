@@ -44,12 +44,13 @@
         (change)="togglePasswordVisibility()"
       >
         Show password
-      </mat-slide-toggle>    </section>    <!-- Mensaje de error usando @if -->
+      </mat-slide-toggle>
+    </section>
     @if (loginError) {
-      <div class="error-message">
-        <mat-icon>error</mat-icon>
-        {{ loginError }}
-      </div>
+    <div class="error-message">
+      <mat-icon>error</mat-icon>
+      {{ loginError }}
+    </div>
     }
 
     <button
@@ -61,12 +62,12 @@
       aria-label="Sign in to your account"
     >
       @if (!isLoading) {
-        <span>SIGN IN</span>
+      <span>SIGN IN</span>
       } @else {
-        <span class="loading-content">
-          <mat-icon class="loading-spinner">refresh</mat-icon>
-          Authenticating...
-        </span>
+      <span class="loading-content">
+        <mat-icon class="loading-spinner">refresh</mat-icon>
+        Authenticating...
+      </span>
       }
     </button>
   </form>
