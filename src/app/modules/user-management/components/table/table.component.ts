@@ -21,22 +21,23 @@ export class TableComponent implements AfterViewInit, OnChanges {
   @Input() loading: boolean = false;
   @Input() error: string | null = null;
   @Input() currentPage: number = 1;
-  @Input() pageSize: number = 10;
+  @Input() pageSize: number = 5;
   @Input() totalUsers: number = 0;
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
-  @Output() refresh = new EventEmitter<void>();
-  public displayedColumns: string[] = ['id', 'fullName', 'email', 'address', 'phone', 'birthDate', 'actions'];
+  @Output() refresh = new EventEmitter<void>();  public displayedColumns: string[] = ['id', 'fullName', 'email', 'address', 'phone', 'birthDate', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
 
-  constructor(private router: Router) {}  ngOnChanges(changes: SimpleChanges): void {
+  constructor(private router: Router) {}
+
+  public ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'] && this.users) {
       this.dataSource.data = this.users;
     }
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     this.dataSource.sortingDataAccessor = (data: User, sortHeaderId: string) => {
       switch (sortHeaderId) {
         case 'fullName': return data.name;
@@ -46,56 +47,34 @@ export class TableComponent implements AfterViewInit, OnChanges {
         case 'phone': return data.phone;
         case 'birthDate': return new Date(data.birthDate).getTime();
         default: return (data as any)[sortHeaderId];
-      }
-    };
+      }    };
 
     this.dataSource.sort = this.sort;
   }
-  /**
-   * Maneja el cambio de página del paginator
-   */
-  onPageEvent(event: PageEvent): void {    if (event.pageSize !== this.pageSize) {
+
+  public onPageEvent(event: PageEvent): void {
+    if (event.pageSize !== this.pageSize) {
       this.pageSizeChange.emit(event.pageSize);
     }
 
-    const newPage = event.pageIndex + 1;
-    if (newPage !== this.currentPage) {
+    const newPage = event.pageIndex + 1;    if (newPage !== this.currentPage) {
       this.pageChange.emit(newPage);
     }
   }
-
-  /**
-   * Maneja la búsqueda local en los datos actuales
-   */
-  onSearch(searchTerm: string): void {
+  public onSearchClick(searchTerm: string): void {
     this.dataSource.filter = searchTerm.trim().toLowerCase();
   }
 
-  /**
-   * Maneja la búsqueda cuando se presiona el botón o Enter
-   */
-  onSearchClick(searchTerm: string): void {
-    this.onSearch(searchTerm);
-  }
-
-  /**
-   * Limpia la búsqueda
-   */
-  onClearSearch(searchInput: HTMLInputElement): void {
+  public onClearSearch(searchInput: HTMLInputElement): void {
     searchInput.value = '';
-    this.onSearch('');
+    this.dataSource.filter = '';
     searchInput.focus();
   }
-  /**
-   * Refresca los datos
-   */
-  onRefreshData(): void {
+
+  public onRefreshData(): void {
     this.refresh.emit();
   }
 
-  /**
-   * Navega al detalle del usuario
-   */
   public onSelectUser(userId: string): void {
     this.router.navigate(['/app/user', userId]);
   }
