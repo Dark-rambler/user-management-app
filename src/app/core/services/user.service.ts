@@ -1,6 +1,7 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, DestroyRef, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, tap, catchError, of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   RandomUserResponse,
   RandomUser,
@@ -11,32 +12,26 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {  private readonly baseUrl = 'https://randomuser.me/api/';
+export class UserService {
+  private readonly baseUrl = 'https://randomuser.me/api/';
+  private destroyRef = inject(DestroyRef);
 
   private state = signal<UserServiceState>({
     users: [],
     loading: false,
     error: null,
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 5,
     totalUsers: 0  });
-
-  users = computed(() => this.state().users);
-  loading = computed(() => this.state().loading);
-  error = computed(() => this.state().error);
-  currentPage = computed(() => this.state().currentPage);
-  pageSize = computed(() => this.state().pageSize);
-  totalUsers = computed(() => this.state().totalUsers);
+  public users = computed(() => this.state().users);
+  public loading = computed(() => this.state().loading);
+  public error = computed(() => this.state().error);
+  public currentPage = computed(() => this.state().currentPage);
+  public pageSize = computed(() => this.state().pageSize);
+  public totalUsers = computed(() => this.state().totalUsers);
 
   constructor(private http: HttpClient) {}
-
-  /**
-   * Obtiene usuarios para una página específica
-   * @param page Número de página (1-based)
-   * @param pageSize Tamaño de la página
-   * @returns Observable con los usuarios
-   */
-  getUsersPaginated(page: number = 1, pageSize: number = 10): Observable<User[]> {
+  public getUsersPaginated(page: number = 1, pageSize: number = 5): Observable<User[]> {
     this.updateState({ loading: true, error: null, currentPage: page, pageSize });
 
     const url = `${this.baseUrl}?results=${pageSize}&page=${page}&seed=foobar`;
@@ -47,7 +42,7 @@ export class UserService {  private readonly baseUrl = 'https://randomuser.me/ap
         this.updateState({
           users,
           loading: false,
-          totalUsers: pageSize * 10 // Simular total para demo
+          totalUsers: pageSize * 10
         });
       }),
       catchError(error => {        this.updateState({
@@ -56,47 +51,33 @@ export class UserService {  private readonly baseUrl = 'https://randomuser.me/ap
         });
         return of([]);
       })
-    );
-  }
-  /**
-   * Obtiene una lista de usuarios aleatorios (método legacy)
-   */
-  getUsers(count: number = 10): Observable<User[]> {
+    );  }
+  public getUsers(count: number = 5): Observable<User[]> {
     return this.getUsersPaginated(1, count);
   }
-  /**
-   * Cambia a una página específica
-   */
-  goToPage(page: number): void {
+  public goToPage(page: number): void {
     if (page > 0) {
-      this.getUsersPaginated(page, this.pageSize()).subscribe();
+      this.getUsersPaginated(page, this.pageSize())
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe();
     }
   }
 
-  /**
-   * Actualiza el tamaño de página y recarga los datos
-   */
-  setPageSize(pageSize: number): void {
-    this.getUsersPaginated(1, pageSize).subscribe();
+  public setPageSize(pageSize: number): void {
+    this.getUsersPaginated(1, pageSize)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 
-  /**
-   * Recarga los datos actuales
-   */
-  refresh(): void {
-    this.getUsersPaginated(this.currentPage(), this.pageSize()).subscribe();
+  public refresh(): void {
+    this.getUsersPaginated(this.currentPage(), this.pageSize())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
   }
 
-  /**
-   * Actualiza el estado interno
-   */
   private updateState(updates: Partial<UserServiceState>): void {
-    this.state.update(current => ({ ...current, ...updates }));
-  }
+    this.state.update(current => ({ ...current, ...updates }));  }
 
-  /**
-   * Transforma los datos de la API al modelo interno
-   */
   private transformUsers(randomUsers: RandomUser[]): User[] {
     return randomUsers.map((user, index) => ({
       id: user.login.uuid || `user-${Date.now()}-${index}`,
@@ -109,25 +90,14 @@ export class UserService {  private readonly baseUrl = 'https://randomuser.me/ap
       gender: user.gender,
       age: user.dob.age,
       fullAddress: this.getFullAddress(user.location)
-    }));
-  }
-  /**
-   * Formatea la dirección del usuario
-   */
+    }));  }
+
   private formatAddress(location: any): string {
-    return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}`;
-  }
+    return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}`;  }
 
-  /**
-   * Obtiene la dirección completa del usuario
-   */
   private getFullAddress(location: any): string {
-    return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}, ${location.country}, ${location.postcode}`;
-  }
+    return `${location.street.number} ${location.street.name}, ${location.city}, ${location.state}, ${location.country}, ${location.postcode}`;  }
 
-  /**
-   * Formatea la fecha de nacimiento
-   */
   private formatDate(dateString: string): string {
     return dateString;
   }

@@ -11,8 +11,7 @@ export class AuthService {
   private readonly mockUsers = environment.mockData.users;
   private readonly loginDelay = environment.config.loginDelay;
 
-  constructor() {}
-  login(credentials: LoginCredentials): Observable<LoginResponse> {
+  public login(credentials: LoginCredentials): Observable<LoginResponse> {
     return of(null).pipe(
       delay(this.loginDelay),
       map(() => {
@@ -39,7 +38,7 @@ export class AuthService {
     );
   }
 
-  logout(): Observable<boolean> {
+  public logout(): Observable<boolean> {
     return of(true).pipe(
       delay(200),
       map(() => {
@@ -50,12 +49,12 @@ export class AuthService {
     );
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return !!localStorage.getItem('authToken');
   }
 
 
-  getCurrentUser(): string | null {
+  public getCurrentUser(): string | null {
     return localStorage.getItem('currentUser');
   }
 
