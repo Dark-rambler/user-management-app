@@ -32,7 +32,6 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 
 const MATERIAL_MODULES = [
-  // Form Controls
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
@@ -45,7 +44,6 @@ const MATERIAL_MODULES = [
   MatNativeDateModule,
   MatAutocompleteModule,
 
-  // Navigation
   MatToolbarModule,
   MatSidenavModule,
   MatListModule,
@@ -53,24 +51,19 @@ const MATERIAL_MODULES = [
   MatTabsModule,
   MatStepperModule,
 
-  // Layout
   MatCardModule,
   MatExpansionModule,
   MatDialogModule,
-
-  // Buttons & Indicators
   MatIconModule,
   MatBadgeModule,
   MatChipsModule,
   MatProgressSpinnerModule,
   MatTooltipModule,
 
-  // Data table
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
 
-  // Popups & Modals
   MatSnackBarModule,
 ];
 

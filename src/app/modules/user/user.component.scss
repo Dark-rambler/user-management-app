@@ -10,7 +10,6 @@
   margin: 0 auto;
 }
 
-// 1. Header del perfil
 .profile-header {
   display: flex;
   align-items: center;
@@ -44,7 +43,6 @@
   margin-bottom: var(--spacing-xl);
 }
 
-// 2. Sección de información
 .info-section {
   display: flex;
   flex-direction: column;
@@ -63,9 +61,6 @@
     grid-column: 1 / -1;
   }
 
-  // Estilos para el mat-form-field para que coincida con el diseño.
-  // Usamos ::ng-deep para sobreescribir los estilos encapsulados de Material.
-  // Se debe usar con precaución.
   ::ng-deep {
     .mat-mdc-form-field {
       width: 100%;
@@ -100,7 +95,6 @@
   }
 }
 
-// 3. Galería de gatos
 .cats-gallery {
   margin-bottom: var(--spacing-xxl);
 
@@ -142,7 +136,6 @@
   }
 }
 
-// 4. Botón de acción
 .action-section {
   display: flex;
   justify-content: flex-end;
@@ -161,7 +154,6 @@
   }
 }
 
-// Ajustes responsivos
 @media (max-width: 768px) {
   :host {
     padding: var(--spacing-lg);

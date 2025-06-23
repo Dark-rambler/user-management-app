@@ -4,8 +4,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { User } from '../../../../core/interfaces';
-import { BirthDatePipe } from '../../../../shared/pipes/birth-date.pipe';
-import { PhoneFormatPipe } from '../../../../shared/pipes/phone-format.pipe';
 
 @Component({
   selector: 'app-table',
@@ -26,10 +24,10 @@ export class TableComponent implements AfterViewInit, OnChanges {
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
-  @Output() refresh = new EventEmitter<void>();  public displayedColumns: string[] = ['id', 'fullName', 'email', 'address', 'phone', 'birthDate', 'actions'];
+  @Output() refresh = new EventEmitter<void>(); public displayedColumns: string[] = ['id', 'fullName', 'email', 'address', 'phone', 'birthDate', 'actions'];
   public dataSource = new MatTableDataSource<User>([]);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['users'] && this.users) {
@@ -47,7 +45,8 @@ export class TableComponent implements AfterViewInit, OnChanges {
         case 'phone': return data.phone;
         case 'birthDate': return new Date(data.birthDate).getTime();
         default: return (data as any)[sortHeaderId];
-      }    };
+      }
+    };
 
     this.dataSource.sort = this.sort;
   }
@@ -57,7 +56,7 @@ export class TableComponent implements AfterViewInit, OnChanges {
       this.pageSizeChange.emit(event.pageSize);
     }
 
-    const newPage = event.pageIndex + 1;    if (newPage !== this.currentPage) {
+    const newPage = event.pageIndex + 1; if (newPage !== this.currentPage) {
       this.pageChange.emit(newPage);
     }
   }

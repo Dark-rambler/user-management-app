@@ -14,10 +14,8 @@ import { SidebarService } from '../core/services/sidebar.service';
   ],
   template: `
     <div class="container-layout">
-      <!-- Sidebar con overlay en móvil -->
       <app-sidebar [class.sidebar-open]="sidebarService.isOpen()"></app-sidebar>
 
-      <!-- Overlay para cerrar sidebar en móvil -->
       @if (sidebarService.isOpen()) {
         <div class="sidebar-overlay" (click)="sidebarService.close()"></div>
       }
@@ -32,6 +30,6 @@ import { SidebarService } from '../core/services/sidebar.service';
   `,
   styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent {
+export default class MainLayoutComponent {
   public sidebarService = inject(SidebarService);
 }

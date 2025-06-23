@@ -2,6 +2,12 @@
 
 A modern Angular application for user management with a responsive design, featuring authentication, user data visualization, and a mobile-friendly interface built with Angular 19 and Angular Material.
 
+## 🌐 Live Demo
+
+**[View Live Application](https://ubiquitous-fudge-3fa4f3.netlify.app/login)**
+
+The application is deployed and accessible at: `https://ubiquitous-fudge-3fa4f3.netlify.app/login`
+
 ## 🚀 Features
 
 - **Authentication System**: Login with mock user credentials
