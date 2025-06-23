@@ -45,7 +45,7 @@ npm install -g @angular/cli
 
 ### 1. Clone the repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/Dark-rambler/user-management-app.git
 cd user-management-app
 ```
 
@@ -218,7 +218,6 @@ ng generate --help
 # Production build
 npm run build
 
-# The build artifacts will be stored in the `dist/` directory
 ```
 
 ## 📱 Progressive Web App
@@ -238,23 +237,6 @@ The project includes `netlify.toml` configuration:
 npm run build
 # Upload dist/ folder to Netlify
 ```
-
-### Other Platforms
-- **Vercel**: Direct integration with Git repositories
-- **Firebase Hosting**: `ng add @angular/fire`
-- **GitHub Pages**: `ng add angular-cli-ghpages`
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-feature`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature/new-feature`)
-5. Create a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License.
 
 ## 🔗 Additional Resources
 
